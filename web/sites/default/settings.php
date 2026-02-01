@@ -242,7 +242,7 @@ $databases = [];
  *         'namespace' => 'Drupal\parent_module',
  *         'autoload' => 'core/modules/parent_module/src/',
  *       ],
- *     ],
+$settings['config_sync_directory'] = 'sites/default/files/config_.../sync'; *     ],
  *   ];
  * @endcode
  */
@@ -443,7 +443,6 @@ $settings['update_free_access'] = FALSE;
  * getting cached pages from the proxy.
  */
 # $settings['omit_vary_cookie'] = TRUE;
-
 
 /**
  * Cache TTL for client error (4xx) responses.
@@ -691,7 +690,7 @@ $settings['update_free_access'] = FALSE;
  * Configuration overrides.
  *
  * To globally override specific configuration values for this site,
- * set them here. You usually don't need to use this feature. This is
+ * set them here. You usually don't need to use this feature. This is$settings['config_sync_directory'] = 'sites/default/files/config_.../sync';
  * useful in a configuration file for a vhost or directory, rather than
  * the default settings.php.
  *
@@ -743,7 +742,7 @@ $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
  *
  * To enable the trusted host mechanism, you enable your allowable hosts
  * in $settings['trusted_host_patterns']. This should be an array of regular
- * expression patterns, without delimiters, representing the hosts you would
+ * expression patterns, without delimiters, representing the hosts you would$settings['config_sync_directory'] = 'sites/default/files/config_.../sync';
  * like to allow.
  *
  * For example:
@@ -897,16 +896,4 @@ if (getenv('IS_DDEV_PROJECT') == 'true' && file_exists(__DIR__ . '/settings.ddev
 # if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
-$databases['default']['default'] = array (
-  'database' => 'drupal11',
-  'username' => 'drupaluser',
-  'password' => 'drupalpass',
-  'prefix' => '',
-  'host' => 'localhost',
-  'port' => '3306',
-  'isolation_level' => 'READ COMMITTED',
-  'driver' => 'mysql',
-  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
-  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
-);
 $settings['config_sync_directory'] = 'sites/default/files/config_iZOSRVsiz9YOq6F4l1L3vN9RX__la6NOqmRu0B_qV66xJhfj6GoMyzqmgmp0lhn-8GCcfoxc4Q/sync';

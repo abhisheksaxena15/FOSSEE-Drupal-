@@ -1,0 +1,17 @@
+event_reg.config:
+  title: 'Event Registration'
+  description: 'Manage event configuration'
+  route_name: event_reg.config
+  parent: system.admin_config_system
+  weight: 100
+
+event_reg.event_config:
+  title: 'Event Configuration'
+  description: 'Configure events'
+  route_name: event_reg.event_config
+  parent: event_reg.config
+
+
+#Admin → Configuration → Event Configuration
+
+#Admin → Configuration → Event Configuration
