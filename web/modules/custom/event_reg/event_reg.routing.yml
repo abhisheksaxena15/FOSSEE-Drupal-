@@ -2,7 +2,9 @@
 event_reg.config:
   path: '/admin/config/event-reg'
   defaults:
-    _title: 'Event Registration'
+    _controller: '\Drupal\event_reg\Controller\EventRegRedirectController::redirectToConfig'
+
+    # _title: 'Event Registration'
   requirements:
     _permission: 'administer event registration'
 
@@ -13,6 +15,15 @@ event_reg.event_config:
     _title: 'Event Configuration'
   requirements:
     _permission: 'administer event registration'
+
+event_reg.registration_form:
+  path: '/event/register'
+  defaults:
+    _form: '\Drupal\event_reg\Form\EventRegistrationForm'
+    _title: 'Event Registration'
+  requirements:
+    _access: 'TRUE'
+
 
 # This means:
 # URL → /admin/config/event-reg/events

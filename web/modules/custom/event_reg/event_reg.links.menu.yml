@@ -12,6 +12,7 @@ event_reg.event_config:
   parent: event_reg.config
 
 
+
 #Admin → Configuration → Event Configuration
 
 #Admin → Configuration → Event Configuration
