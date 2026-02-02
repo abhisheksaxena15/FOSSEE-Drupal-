@@ -100,6 +100,7 @@ class EventRegistrationFormV2 extends FormBase {
         'callback' => '::updateEventDates',
         'wrapper' => 'event-date-wrapper',
       ],
+
     ];
 
     // Event Date (AJAX wrapper).
@@ -111,15 +112,20 @@ class EventRegistrationFormV2 extends FormBase {
     $form['event_date_wrapper']['event_date'] = [
   '#type' => 'select',
   '#title' => $this->t('Event Date'),
-  '#options' => $selected_category
-    ? ['' => $this->t('- Select -')] + $this->getEventDates($selected_category)
-    : ['' => $this->t('- Select -')],
+  '#options' => ['' => $this->t('- Select -')],
   '#required' => TRUE,
+'#parents' => ['event_date'],
   '#ajax' => [
     'callback' => '::updateEventNames',
     'wrapper' => 'event-name-wrapper',
   ],
 ];
+
+if (!empty($selected_category)) {
+  $form['event_date_wrapper']['event_date']['#options'] +=
+    $this->getEventDates($selected_category);
+}
+
 
 
     // Event Name (AJAX wrapper).
@@ -131,11 +137,16 @@ class EventRegistrationFormV2 extends FormBase {
     $form['event_name_wrapper']['event_name'] = [
   '#type' => 'select',
   '#title' => $this->t('Event Name'),
-  '#options' => ($selected_category && $selected_date)
-    ? ['' => $this->t('- Select -')] + $this->getEventNames($selected_category, (int) $selected_date)
-    : ['' => $this->t('- Select -')],
+  '#options' => ['' => $this->t('- Select -')],
   '#required' => TRUE,
+'#parents' => ['event_name']
 ];
+
+if (!empty($selected_category) && !empty($selected_date)) {
+  $form['event_name_wrapper']['event_name']['#options'] +=
+    $this->getEventNames($selected_category, (int) $selected_date);
+}
+
 
 
 
@@ -213,14 +224,14 @@ class EventRegistrationFormV2 extends FormBase {
 
 // ----------------------------------------------------------
   public function updateEventDates(array &$form, FormStateInterface $form_state) {
-  $form_state->setRebuild();
   return $form['event_date_wrapper'];
 }
 
 public function updateEventNames(array &$form, FormStateInterface $form_state) {
-  $form_state->setRebuild();
   return $form['event_name_wrapper'];
 }
+           
+
 
 
   /**
@@ -236,26 +247,53 @@ public function updateEventNames(array &$form, FormStateInterface $form_state) {
   $event_id = $form_state->getValue('event_name');
   $created = \Drupal::time()->getRequestTime();
 
-  // Insert registration into database.
+  // Insert registration.
   $this->database->insert('event_reg_registration')
     ->fields([
       'full_name' => $full_name,
       'email' => $email,
-      'college_name' => $college, // matches DB column
+      'college_name' => $college,
       'department' => $department,
       'event_id' => $event_id,
       'created' => $created,
     ])
     ->execute();
 
-  // Success message.
-  $this->messenger()->addStatus(
-    $this->t('You have successfully registered for the event.')
+  // Load event details for email.
+  $event = $this->database->select('event_reg_event', 'e')
+    ->fields('e', ['event_name', 'event_date', 'category'])
+    ->condition('id', $event_id)
+    ->execute()
+    ->fetchObject();
+
+  // Prepare email body.
+  $body = "Hello {$full_name},\n\n";
+  $body .= "You have successfully registered for the event.\n\n";
+  $body .= "Event Name: {$event->event_name}\n";
+  $body .= "Category: {$event->category}\n";
+  $body .= "Event Date: " . date('d M Y', $event->event_date) . "\n\n";
+  $body .= "Thank you for registering.";
+
+  // Send email to user.
+  \Drupal::service('plugin.manager.mail')->mail(
+    'event_reg',
+    'registration_confirmation',
+    $email,
+    \Drupal::languageManager()->getDefaultLanguage()->getId(),
+    [
+      'subject' => 'Event Registration Confirmation',
+      'body' => $body,
+    ]
   );
 
-  // Reload page after submit.
+  // Success message.
+  $this->messenger()->addStatus(
+    $this->t('You have successfully registered. A confirmation email has been sent.')
+  );
+
   $form_state->setRedirect('<current>');
 }
+
 
 
 
