@@ -1,4 +1,4 @@
-# Event Registration Module (event_reg)
+<img width="814" height="504" alt="Screenshot 2026-02-03 082442" src="https://github.com/user-attachments/assets/0af49831-bd2b-452d-aa48-2059f9c5db5e" /># Event Registration Module (event_reg)
 
 A custom Drupal 10.x module built as part of the **FOSSEE task**.  
 This module provides a complete event registration system with admin configuration, public registration, validation, email notifications, admin listing, filtering, and CSV export — **without using any contrib modules**.
@@ -103,6 +103,8 @@ Admin permissions can be managed at:
 https://cms-2.0.0.ddev.site/admin/people/permissions
 
 ---
+<img width="814" height="504" alt="Screenshot 2026-02-03 082442" src="https://github.com/user-attachments/assets/be664a50-efc2-472e-b741-5a5f2054fe13" />
+
 
 ## Workflow & Functionality
 
@@ -114,6 +116,7 @@ Admins can create and manage events at:
 
 **URL:**  
 https://cms-2.0.0.ddev.site/admin/config/event-reg/events
+<img width="1045" height="1067" alt="Screenshot 2026-02-03 082946" src="https://github.com/user-attachments/assets/95344897-e7b2-4663-939b-681ec1b57a3b" />
 
 #### Event Fields
 
@@ -139,6 +142,7 @@ Admin configuration page:
 
 **URL:**  
 https://cms-2.0.0.ddev.site/admin/config/event-reg/settings
+<img width="754" height="479" alt="Screenshot 2026-02-03 083100" src="https://github.com/user-attachments/assets/59a589ce-c12f-4081-910c-55617884ab7f" />
 
 #### Configuration Options
 
@@ -160,6 +164,7 @@ Public registration form:
 
 **URL:**  
 https://cms-2.0.0.ddev.site/event/register
+<img width="948" height="1051" alt="Screenshot 2026-02-03 083223" src="https://github.com/user-attachments/assets/7887c055-ff80-41a8-b1b6-e1a76f743478" />
 
 #### Registration Logic
 
@@ -206,7 +211,7 @@ All registrations are stored in a custom database table.
 ```bash
 ddev drush sqlq "SELECT * FROM event_reg_registration;"
 ddev drush sqlq "DESCRIBE event_reg_registration;"
-
+```
 ### STEP 6: Email Notifications
 
 Emails are sent using the Drupal Mail API.
@@ -229,6 +234,7 @@ Local email testing is done using Mailpit.
 
 **Mailpit URL:**  
 https://cms-2.0.0.ddev.site:8026
+<img width="1919" height="1148" alt="Screenshot 2026-02-03 083350" src="https://github.com/user-attachments/assets/ab5bafa9-33a6-4c8d-9ac2-8de5abfaf39d" />
 
 ---
 
@@ -237,6 +243,7 @@ https://cms-2.0.0.ddev.site:8026
 Admins can view all registrations at:
 
 /admin/config/event-reg/registrations
+<img width="1843" height="1036" alt="Screenshot 2026-02-03 083552" src="https://github.com/user-attachments/assets/b79ccabf-cab0-45bd-9e02-cf85eca493db" />
 
 (Also available via the admin menu)
 
@@ -254,6 +261,7 @@ Admins can view all registrations at:
 ### STEP 8: CSV Export
 
 Admins can export registrations as a CSV file.
+<img width="1577" height="355" alt="Screenshot 2026-02-03 083726" src="https://github.com/user-attachments/assets/94e4b1b3-d54e-48c6-b63c-78c3e26dafcf" />
 
 #### Included Fields
 
@@ -265,6 +273,7 @@ Admins can export registrations as a CSV file.
 - Submission Date
 
 **Implementation Details**
+<img width="1864" height="1001" alt="Screenshot 2026-02-03 083850" src="https://github.com/user-attachments/assets/9fd50373-eaaa-4ff6-910e-f931a1a0d697" />
 
 - Uses core PHP CSV handling
 - No contributed modules
