@@ -1,17 +1,41 @@
 event_reg.config:
   title: 'Event Registration'
-  description: 'Manage event configuration'
+  description: 'Manage event registration system'
   route_name: event_reg.config
   parent: system.admin_config_system
-  weight: 100
+  weight: 20
+
 
 event_reg.event_config:
   title: 'Event Configuration'
-  description: 'Configure events'
+  description: 'Create and manage events'
   route_name: event_reg.event_config
   parent: event_reg.config
+  weight: 1
 
 
+event_reg.settings:
+  title: 'Event Registration Settings'
+  description: 'Configure emails and notifications'
+  route_name: event_reg.settings
+  parent: event_reg.config
+  weight: 2
+
+
+event_reg.registration_list_link:
+  title: 'View Registrations'
+  description: 'View all event registrations'
+  route_name: event_reg.registration_list
+  parent: event_reg.config
+  weight: 3
+
+
+
+event_reg.registration_list:
+  title: 'Event Registrations'
+  route_name: event_reg.registration_list
+  parent: event_reg.config
+  weight: 30
 
 #Admin → Configuration → Event Configuration
 

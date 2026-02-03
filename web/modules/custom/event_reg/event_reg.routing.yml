@@ -24,7 +24,30 @@ event_reg.registration_form:
   requirements:
     _access: 'TRUE'
 
+event_reg.settings:
+  path: '/admin/config/event-reg/settings'
+  defaults:
+    _form: '\Drupal\event_reg\Form\EventRegSettingsForm'
+    _title: 'Event Registration Settings'
+  requirements:
+    _permission: 'administer site configuration'
 
+
+event_reg.registrations:
+  path: '/admin/config/event-reg/registrations'
+  defaults:
+    _controller: '\Drupal\event_reg\Controller\EventRegistrationListController::list'
+    _title: 'Event Registrations'
+  requirements:
+    _permission: 'administer event registration'
+
+event_reg.registration_list:
+  path: '/admin/event-reg/registrations'
+  defaults:
+    _controller: '\Drupal\event_reg\Controller\AdminRegistrationController::list'
+    _title: 'Event Registrations'
+  requirements:
+    _permission: 'administer site configuration'
 # This means:
 # URL → /admin/config/event-reg/events
 # Only users with administer event registration permission can access

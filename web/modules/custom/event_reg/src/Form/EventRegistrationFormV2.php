@@ -237,7 +237,7 @@ public function updateEventNames(array &$form, FormStateInterface $form_state) {
   /**
    * {@inheritdoc}
    */
- public function submitForm(array &$form, FormStateInterface $form_state): void {
+public function submitForm(array &$form, FormStateInterface $form_state): void {
 
   // Collect form values.
   $full_name = $form_state->getValue('full_name');
@@ -292,7 +292,41 @@ public function updateEventNames(array &$form, FormStateInterface $form_state) {
   );
 
   $form_state->setRedirect('<current>');
+
+
+
+  // Send admin notification if enabled.
+  $config = \Drupal::config('event_reg.settings');
+
+if ($config->get('notify_admin')) {
+
+  $admin_email = $config->get('admin_email');
+
+  $admin_body = "New event registration received:\n\n";
+  $admin_body .= "Name: {$full_name}\n";
+  $admin_body .= "Email: {$email}\n";
+  $admin_body .= "Event: {$event->event_name}\n";
+  $admin_body .= "Date: " . date('d M Y', $event->event_date) . "\n";
+
+  \Drupal::service('plugin.manager.mail')->mail(
+    'event_reg',
+    'admin_notification',
+    $admin_email,
+    \Drupal::languageManager()->getDefaultLanguage()->getId(),
+    [
+      'subject' => 'New Event Registration',
+      'body' => $admin_body,
+    ]
+  );
 }
+
+
+
+}
+
+
+
+
 
 
 
