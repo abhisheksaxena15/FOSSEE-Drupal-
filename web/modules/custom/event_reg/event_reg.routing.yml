@@ -29,6 +29,18 @@ event_reg.registration_list:
     _title: 'Event Registrations'
   requirements:
     _permission: 'administer event registration'
+
+
+event_reg.registration_form:
+  path: '/event/register'
+  defaults:
+    _form: '\Drupal\event_reg\Form\EventRegistrationFormV2'
+    _title: 'Event Registration'
+  requirements:
+    _access: 'TRUE'
+
+
+
 # This means:
 # URL → /admin/config/event-reg/events
 # Only users with administer event registration permission can access
